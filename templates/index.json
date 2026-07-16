@@ -1,0 +1,211 @@
+{
+  "sections": {
+    "drink_hero": {
+      "type": "drink-hero",
+      "settings": {
+        "heading": "India's First Himalayan Botanical Malt Brew",
+        "marquee_text": "FIVE ELEMENTS  •  FIVE FLAVORS  •  2.5-30 CALORIES  •  ZERO ADDED SUGAR  •",
+        "can_alt": "The 6th Element Himalayan botanical malt brew can",
+        "padding_top": 32,
+        "padding_bottom": 0
+      }
+    },
+    "drink_stats_bar": {
+      "type": "drink-stats-bar",
+      "blocks": {
+        "stat_1": { "type": "stat_item", "settings": { "number": "4/5 drinks", "label": "under 15 calories" } },
+        "stat_2": { "type": "stat_item", "settings": { "number": "'Zero'", "label": "added sugar" } },
+        "stat_3": { "type": "stat_item", "settings": { "number": "Monkfruit", "label": "sweetened" } },
+        "stat_4": { "type": "stat_item", "settings": { "number": "QR", "label": "traceable to farmers" } }
+      },
+      "block_order": ["stat_1", "stat_2", "stat_3", "stat_4"],
+      "settings": {
+        "cta_label": "See our full story",
+        "cta_link": ""
+      }
+    },
+    "drink_meet_elements": {
+      "type": "drink-meet-elements",
+      "blocks": {
+        "card_prithvi": {
+          "type": "element_card",
+          "settings": {
+            "title": "PRITHVI [ Earth ]",
+            "badge": "[Arabica Coffee + Timur Pepper]",
+            "note": "60 mg natural caffeine, grounded focus · Only 14.50 calories"
+          }
+        },
+        "card_jal": {
+          "type": "element_card",
+          "settings": {
+            "title": "JAL [ Water ]",
+            "badge": "[Wild Rhododendron]",
+            "note": "Naturally pink from anthocyanins, 2g fiber · Only 5.90 calories"
+          }
+        },
+        "card_agni": {
+          "type": "element_card",
+          "settings": {
+            "title": "AGNI [ Fire ]",
+            "badge": "[Sea Buckthorn from 11,400 ft]",
+            "note": "35 mg vitamin C, complete Omega- 3/6/7/8/9 profile · Only 29.90 calories"
+          }
+        },
+        "card_vayu": {
+          "type": "element_card",
+          "settings": {
+            "title": "VAYU [ Air ]",
+            "badge": "[Wild Kilmora Berry]",
+            "note": "Can't be farmed, hand-foraged once a year · Only 2.50 calories"
+          }
+        }
+      },
+      "block_order": ["card_prithvi", "card_jal", "card_agni", "card_vayu"],
+      "settings": {
+        "heading": "Meet the Elements",
+        "subheading": "[Rooted in Pancha Mahabhuta]",
+        "description": "Five elements. Five rare Himalayan ingredients. One daily ritual",
+        "cta_label": "Shop the Collection",
+        "cta_link": ""
+      }
+    },
+    "drink_good_stuff": {
+      "type": "drink-good-stuff",
+      "blocks": {
+        "tile_1": { "type": "tile", "settings": { "color": "forest", "title": "Ultra-low calories", "body": "<p>2.5 - 30 cal</p>", "footnote": "*4/5 under 15 calories" } },
+        "tile_2": { "type": "tile", "settings": { "color": "cream", "texture": true, "title": "Zero added sugar", "body": "<p>No stevia. No artificial sweeteners</p>", "footnote": "*Monk fruit sweetened" } },
+        "tile_3": { "type": "tile", "settings": { "color": "gold", "title": "Altitude-sourced", "body": "<p>Ingredients from 400m - 3,500m elevation across Uttarakhand</p>", "footnote": "" } },
+        "tile_4": { "type": "tile", "settings": { "color": "cream", "texture": true, "title": "Plant based colors", "body": "<p>Blue pea flower - Blue · Anthocyanin - Pink · Turmeric - Orange</p>", "footnote": "*No synthetic dyes" } },
+        "tile_5": { "type": "tile", "settings": { "color": "gold", "texture": true, "title": "Complete Transparency", "body": "<p>QR code links to Eurofins lab reports, farmers GPS, batch data</p>", "footnote": "" } },
+        "tile_6": { "type": "tile", "settings": { "color": "forest", "texture": true, "title": "Vegan, gluten-free", "body": "<p>100% plant-based, gluten removed during processing</p>", "footnote": "" } }
+      },
+      "block_order": ["tile_1", "tile_2", "tile_3", "tile_4", "tile_5", "tile_6"],
+      "settings": {
+        "heading": "The Good Stuff",
+        "description": "Scan the QR code on any can. See the lab report. See the farmer's name. See the GPS coordinates. Not asking you to trust us. Showing you the data.",
+        "cta_label": "See How it Works",
+        "cta_link": ""
+      }
+    },
+    "drink_origin_map": {
+      "type": "drink-origin-map",
+      "blocks": {
+        "pin_1": { "type": "pin", "settings": { "element": "Agni", "altitude": "[11,400+ ft]", "ingredient": "Sea Buckthorn" } },
+        "pin_2": { "type": "pin", "settings": { "element": "Prithvi", "altitude": "[1,300+ ft]", "ingredient": "Coffee Arabica" } },
+        "pin_3": { "type": "pin", "settings": { "element": "Vayu", "altitude": "[6,700+ ft]", "ingredient": "Kilmora berry" } },
+        "pin_4": { "type": "pin", "settings": { "element": "Jal", "altitude": "[7,874+ ft]", "ingredient": "Rhododendron" } },
+        "pin_5": { "type": "pin", "settings": { "element": "Akash", "altitude": "[3,280 ft]", "ingredient": "Blue Pea Flower" } },
+        "pin_6": { "type": "pin", "settings": { "element": "Sixth", "altitude": "", "ingredient": "Scroll more to find" } }
+      },
+      "block_order": ["pin_1", "pin_2", "pin_3", "pin_4", "pin_5", "pin_6"],
+      "settings": {
+        "heading": "From the Heart of the Himalayas",
+        "subheading": "From the foothills to the peaks. Real places. Real farmers. Real terroir.",
+        "tag": "Highland Botanical Ingredients",
+        "quote": "<p><strong>Sea buckthorn grows in wild</strong> at 11400 ft. Kilmora only <strong>grows wild in forests</strong> in deep valleys. Blue pea flower <strong>changes color with soil pH</strong>.</p>",
+        "quote_pill": "This is what happens when you respect ingredients",
+        "cta_label": "Read the full story",
+        "cta_link": ""
+      }
+    },
+    "drink_ingredient_story": {
+      "type": "drink-ingredient-story",
+      "blocks": {
+        "ing_kilmora": { "type": "ingredient_card", "settings": { "title": "Kilmora berry", "body": "Wild-foraged, lightly tangy, packed with antioxidants", "fallback_asset": "6e-ingredient-kilmora.jpg" } },
+        "ing_rhodo": { "type": "ingredient_card", "settings": { "title": "Rhododendron", "body": "Naturally pink, floral lightness, 2g fiber per can", "fallback_asset": "6e-ingredient-rhododendron.jpg" } },
+        "ing_bluepea": { "type": "ingredient_card", "settings": { "title": "Blue pea flower", "body": "Soothing freshness, changes color with soil pH", "fallback_asset": "6e-ingredient-bluepea.jpg" } },
+        "ing_coffee": { "type": "ingredient_card", "settings": { "title": "Coffee Arabica", "body": "Warm energy, grounded boost, 60mg natural caffeine", "fallback_asset": "6e-ingredient-coffee.jpg" } }
+      },
+      "block_order": ["ing_kilmora", "ing_rhodo", "ing_bluepea", "ing_coffee"],
+      "settings": {
+        "heading": "Every Ingredient has a story",
+        "description": "Rooted in nature, every ingredient carries its elemental character and ultra-less calories",
+        "cta_label": "Browse all",
+        "cta_link": ""
+      }
+    },
+    "drink_manifesto": {
+      "type": "drink-manifesto",
+      "settings": {
+        "eyebrow": "Ancient Indian philosophy recognizes five elements that make up our world. But there's a sixth element that completes the ritual:",
+        "statement": "<p>The Sixth. Its <em>YOU</em><br>your choice, your pause your daily ritual</p>",
+        "pill_text": "Pop it. Drink it. That's the Ritual",
+        "marquee_text": "SWEETENED WITH MONK FRUIT  •  NO SUGAR  •  NO ARTIFICIAL COLORS  •  NO COMPROMISES  •"
+      }
+    },
+    "drink_video_showcase": {
+      "type": "drink-video-showcase",
+      "blocks": {
+        "panel_left": { "type": "panel", "settings": { "size": "small", "fallback_asset": "6e-video-panel-left.jpg", "alt": "Harvest journey" } },
+        "panel_center": { "type": "panel", "settings": { "size": "large", "fallback_asset": "6e-video-panel-center-2.jpg", "alt": "Hand-picking sea buckthorn" } },
+        "panel_right": { "type": "panel", "settings": { "size": "small", "fallback_asset": "6e-video-panel-right.jpg", "alt": "Canning line" } }
+      },
+      "block_order": ["panel_left", "panel_center", "panel_right"],
+      "settings": {
+        "heading": "See it in action",
+        "description": "From rare Himalayan ingredients to your glass, experience how every element comes together in motion"
+      }
+    },
+    "drink_no_rules": {
+      "type": "drink-no-rules",
+      "blocks": {
+        "item_1": { "type": "marquee_item", "settings": { "content_type": "pill", "color": "brown", "text": "you ordering or not" } },
+        "item_2": { "type": "marquee_item", "settings": { "content_type": "can", "fallback_asset": "6e-can-prithvi.png" } },
+        "item_3": { "type": "marquee_item", "settings": { "content_type": "pill", "color": "teal", "text": "in the mood or not" } },
+        "item_4": { "type": "marquee_item", "settings": { "content_type": "can", "fallback_asset": "6e-can-jal.png" } },
+        "item_5": { "type": "marquee_item", "settings": { "content_type": "pill", "color": "olive", "text": "unsure or not" } },
+        "item_6": { "type": "marquee_item", "settings": { "content_type": "can", "fallback_asset": "6e-can-agni.png" } },
+        "item_7": { "type": "marquee_item", "settings": { "content_type": "pill", "color": "olive", "text": "another round or not" } },
+        "item_8": { "type": "marquee_item", "settings": { "content_type": "can", "fallback_asset": "6e-can-vayu.png" } }
+      },
+      "block_order": ["item_1", "item_2", "item_3", "item_4", "item_5", "item_6", "item_7", "item_8"],
+      "settings": {
+        "heading": "No rules. Just sip.",
+        "subheading": "Drink it your way"
+      }
+    },
+    "drink_feature_icons": {
+      "type": "drink-feature-icons",
+      "blocks": {
+        "feat_1": { "type": "feature", "settings": { "fallback_asset": "6e-feature-icon-hand.svg", "caption": "'Hand-Harvested from 7,000+ Feet'" } },
+        "feat_2": { "type": "feature", "settings": { "fallback_asset": "6e-feature-icon-leaf.svg", "caption": "'No Artificial Colors or Preservatives'" } },
+        "feat_3": { "type": "feature", "settings": { "fallback_asset": "6e-feature-icon-drop.svg", "caption": "Vitamin rich, has essential nutrients" } },
+        "feat_4": { "type": "feature", "settings": { "fallback_asset": "6e-feature-icon-flame.svg", "caption": "'Low Calorie (18-25 kcal vs 105 in Coke)'" } },
+        "feat_5": { "type": "feature", "settings": { "fallback_asset": "6e-feature-icon-heart.svg", "caption": "'Community-Sourced, Heritage Farming'" } }
+      },
+      "block_order": ["feat_1", "feat_2", "feat_3", "feat_4", "feat_5"],
+      "settings": {
+        "heading": "What makes us different?",
+        "description": "Rooted in nature, every ingredient carries its elemental character"
+      }
+    },
+    "drink_instagram_gallery": {
+      "type": "drink-instagram-gallery",
+      "blocks": {
+        "gram_1": { "type": "photo", "settings": { "fallback_asset": "6e-gram-1.jpg", "width": "regular" } },
+        "gram_2": { "type": "photo", "settings": { "fallback_asset": "6e-gram-2.jpg", "width": "regular" } },
+        "gram_3": { "type": "photo", "settings": { "fallback_asset": "6e-gram-3.jpg", "width": "regular" } },
+        "gram_4": { "type": "photo", "settings": { "fallback_asset": "6e-gram-4.jpg", "width": "regular" } },
+        "gram_5": { "type": "photo", "settings": { "fallback_asset": "6e-gram-5.jpg", "width": "narrow" } }
+      },
+      "block_order": ["gram_1", "gram_2", "gram_3", "gram_4", "gram_5"],
+      "settings": {
+        "heading": "On the #gram",
+        "handle": "@drinkthesixthelement"
+      }
+    }
+  },
+  "order": [
+    "drink_hero",
+    "drink_stats_bar",
+    "drink_meet_elements",
+    "drink_good_stuff",
+    "drink_origin_map",
+    "drink_ingredient_story",
+    "drink_manifesto",
+    "drink_video_showcase",
+    "drink_no_rules",
+    "drink_feature_icons",
+    "drink_instagram_gallery"
+  ]
+}

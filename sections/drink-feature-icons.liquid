@@ -1,0 +1,169 @@
+{% comment %}
+  "What makes us different?" — a cream rounded panel with a heading and a
+  row of icon + caption feature callouts.
+{% endcomment %}
+
+<div class="drink-features page-width">
+  <div class="drink-features__panel">
+    <div class="drink-features__header">
+      <h2 class="drink-section-heading drink-features__heading">{{ section.settings.heading }}</h2>
+      {%- if section.settings.description != blank -%}
+        <p class="drink-features__description">{{ section.settings.description }}</p>
+      {%- endif -%}
+    </div>
+
+    <div class="drink-features__row">
+      {%- for block in section.blocks -%}
+        <div class="drink-features__item" {{ block.shopify_attributes }}>
+          <span class="drink-features__icon">
+            {%- if block.settings.icon != blank -%}
+              {{ block.settings.icon | image_url: width: 93 | image_tag: loading: 'lazy' }}
+            {%- else -%}
+              <img
+                src="{{ block.settings.fallback_asset | asset_url }}"
+                alt=""
+                width="40"
+                height="40"
+                loading="lazy"
+              >
+            {%- endif -%}
+          </span>
+          <p class="drink-features__caption">{{ block.settings.caption }}</p>
+        </div>
+      {%- endfor -%}
+    </div>
+  </div>
+</div>
+
+{% stylesheet %}
+  .drink-features {
+    padding-block: 32px;
+  }
+
+  .drink-features__panel {
+    background: var(--drink-cream);
+    border-radius: 50px;
+    padding: 56px 32px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 40px;
+  }
+
+  .drink-features__header {
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+    max-width: 640px;
+  }
+
+  .drink-features__heading {
+    margin: 0;
+    font-size: clamp(1.6rem, 2.8vw, 2.25rem);
+  }
+
+  .drink-features__description {
+    margin: 0;
+    color: var(--drink-charcoal);
+    font-size: 1.05rem;
+  }
+
+  .drink-features__row {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 40px;
+  }
+
+  .drink-features__item {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 16px;
+    width: 156px;
+    text-align: center;
+  }
+
+  .drink-features__icon {
+    width: 68px;
+    height: 68px;
+    border-radius: 50%;
+    background: var(--drink-forest);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .drink-features__icon img {
+    width: 32px;
+    height: 32px;
+    object-fit: contain;
+  }
+
+  .drink-features__caption {
+    margin: 0;
+    color: #4b4b4b;
+    font-size: 0.9rem;
+  }
+{% endstylesheet %}
+
+{% schema %}
+{
+  "name": "Drink feature icons",
+  "tag": "section",
+  "class": "section-wrapper",
+  "settings": [
+    {
+      "type": "text",
+      "id": "heading",
+      "label": "Heading",
+      "default": "What makes us different?"
+    },
+    {
+      "type": "text",
+      "id": "description",
+      "label": "Description",
+      "default": "Rooted in nature, every ingredient carries its elemental character"
+    }
+  ],
+  "blocks": [
+    {
+      "type": "feature",
+      "name": "Feature",
+      "settings": [
+        {
+          "type": "image_picker",
+          "id": "icon",
+          "label": "Icon"
+        },
+        {
+          "type": "text",
+          "id": "fallback_asset",
+          "label": "Fallback asset filename",
+          "info": "Used only when no icon is selected. Advanced.",
+          "default": "6e-feature-icon-hand.svg"
+        },
+        {
+          "type": "text",
+          "id": "caption",
+          "label": "Caption",
+          "default": "'Hand-Harvested from 7,000+ Feet'"
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Drink feature icons",
+      "blocks": [
+        { "type": "feature", "settings": { "fallback_asset": "6e-feature-icon-hand.svg", "caption": "'Hand-Harvested from 7,000+ Feet'" } },
+        { "type": "feature", "settings": { "fallback_asset": "6e-feature-icon-leaf.svg", "caption": "'No Artificial Colors or Preservatives'" } },
+        { "type": "feature", "settings": { "fallback_asset": "6e-feature-icon-drop.svg", "caption": "Vitamin rich, has essential nutrients" } },
+        { "type": "feature", "settings": { "fallback_asset": "6e-feature-icon-flame.svg", "caption": "'Low Calorie (18-25 kcal vs 105 in Coke)'" } },
+        { "type": "feature", "settings": { "fallback_asset": "6e-feature-icon-heart.svg", "caption": "'Community-Sourced, Heritage Farming'" } }
+      ]
+    }
+  ]
+}
+{% endschema %}

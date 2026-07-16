@@ -1,0 +1,319 @@
+{% comment %}
+  "Meet the Elements" product showcase: a heading row plus a horizontally
+  scrollable row of illustrated-can product cards. Each card can optionally
+  be linked to a real product for working add-to-cart.
+{% endcomment %}
+
+<div class="drink-elements page-width">
+  <div class="drink-elements__header">
+    <div class="drink-elements__heading-group">
+      <h2 class="drink-section-heading drink-elements__heading">{{ section.settings.heading }}</h2>
+      {%- if section.settings.subheading != blank -%}
+        <p class="drink-elements__subheading">{{ section.settings.subheading }}</p>
+      {%- endif -%}
+    </div>
+    {%- if section.settings.description != blank -%}
+      <p class="drink-elements__description">{{ section.settings.description }}</p>
+    {%- endif -%}
+    {%- if section.settings.cta_label != blank -%}
+      <a href="{{ section.settings.cta_link | default: '#' }}" class="drink-elements__cta">
+        {{ section.settings.cta_label }}
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+      </a>
+    {%- endif -%}
+  </div>
+
+  <div class="drink-elements__row">
+    {%- for block in section.blocks -%}
+      {%- liquid
+        assign card_product = block.settings.product
+        assign card_available = false
+        if card_product != blank and card_product.selected_or_first_available_variant.available
+          assign card_available = true
+        endif
+      -%}
+      <div class="drink-elements__card" {{ block.shopify_attributes }}>
+        {%- if block.settings.badge != blank -%}
+          <span class="drink-elements__badge">{{ block.settings.badge }}</span>
+        {%- endif -%}
+
+        <p class="drink-elements__title">{{ block.settings.title }}</p>
+
+        {%- liquid
+          assign fallback_can = '6e-can-prithvi.png'
+          if block.settings.title contains 'JAL'
+            assign fallback_can = '6e-can-jal.png'
+          elsif block.settings.title contains 'AGNI'
+            assign fallback_can = '6e-can-agni.png'
+          elsif block.settings.title contains 'VAYU'
+            assign fallback_can = '6e-can-vayu.png'
+          endif
+        -%}
+        <div class="drink-elements__can">
+          {%- if block.settings.image != blank -%}
+            {{ block.settings.image | image_url: width: 500 | image_tag: class: 'drink-elements__can-img', loading: 'lazy' }}
+          {%- else -%}
+            <img
+              src="{{ fallback_can | asset_url }}"
+              alt="{{ block.settings.title | strip_html }}"
+              class="drink-elements__can-img"
+              width="1080"
+              height="1350"
+              loading="lazy"
+            >
+          {%- endif -%}
+        </div>
+
+        {%- if card_product != blank -%}
+          {%- form 'product', card_product, class: 'drink-elements__form' -%}
+            <input type="hidden" name="id" value="{{ card_product.selected_or_first_available_variant.id }}">
+            {%- render 'add-to-cart-button',
+              can_add_to_cart: card_available,
+              add_to_cart_text: 'Add to Cart',
+              product: card_product,
+              class: 'drink-elements__add-btn'
+            -%}
+          {%- endform -%}
+        {%- else -%}
+          <a href="{{ section.settings.cta_link | default: '#' }}" class="drink-elements__add-btn drink-elements__add-btn--link">
+            Add to Cart
+          </a>
+        {%- endif -%}
+
+        {%- if block.settings.note != blank -%}
+          <p class="drink-elements__note">{{ block.settings.note }}</p>
+        {%- endif -%}
+      </div>
+    {%- endfor -%}
+  </div>
+</div>
+
+{% stylesheet %}
+  .drink-elements {
+    padding-block: 64px;
+    background: var(--drink-cream);
+  }
+
+  .drink-elements__header {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: flex-end;
+    justify-content: space-between;
+    gap: 20px;
+    padding-block-end: 32px;
+  }
+
+  .drink-elements__heading {
+    font-size: clamp(1.75rem, 3vw, 2.5rem);
+    margin: 0 0 6px;
+  }
+
+  .drink-elements__subheading {
+    margin: 0;
+    font-size: 1.35rem;
+    color: var(--drink-ink-2);
+  }
+
+  .drink-elements__description {
+    max-width: 340px;
+    margin: 0;
+    color: var(--drink-charcoal);
+    font-size: 1.05rem;
+  }
+
+  .drink-elements__cta {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    font-weight: 700;
+    color: var(--drink-charcoal);
+    text-decoration: none;
+    white-space: nowrap;
+  }
+
+  .drink-elements__cta svg {
+    width: 20px;
+    height: 20px;
+  }
+
+  .drink-elements__row {
+    display: grid;
+    grid-auto-flow: column;
+    grid-auto-columns: minmax(240px, 1fr);
+    gap: 16px;
+    overflow-x: auto;
+    scroll-snap-type: x mandatory;
+    padding-block-end: 8px;
+  }
+
+  .drink-elements__card {
+    scroll-snap-align: start;
+    background: #fff;
+    border-radius: 24px;
+    box-shadow: 0 1px 3px rgba(39, 41, 42, 0.22);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 16px;
+    padding: 20px 16px 28px;
+  }
+
+  .drink-elements__badge {
+    background: var(--drink-gold);
+    color: var(--drink-cream-3);
+    font-weight: 700;
+    font-size: 0.7rem;
+    border-radius: 50px;
+    padding: 5px 12px;
+    box-shadow: 0 1px 0.5px rgba(192, 178, 178, 0.25);
+  }
+
+  .drink-elements__title {
+    margin: 0;
+    font-weight: 700;
+    font-size: 1.25rem;
+    color: var(--drink-ink-2);
+    text-align: center;
+  }
+
+  .drink-elements__can {
+    width: 65%;
+    max-width: 220px;
+  }
+
+  .drink-elements__can-img {
+    width: 100%;
+    height: auto;
+    display: block;
+  }
+
+  .drink-elements__add-btn,
+  .drink-elements__add-btn--link {
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: var(--drink-forest);
+    color: var(--drink-cream-3);
+    border: 1px solid var(--drink-charcoal);
+    box-shadow: 0 4px 0 var(--drink-gold);
+    border-radius: 50px;
+    padding: 13px 20px;
+    font-weight: 700;
+    font-size: 0.95rem;
+    text-decoration: none;
+    cursor: pointer;
+  }
+
+  .drink-elements__note {
+    margin: 0;
+    text-align: center;
+    font-size: 0.75rem;
+    color: #828886;
+  }
+
+  .drink-elements__note strong {
+    display: block;
+    color: #828886;
+    font-weight: 600;
+  }
+{% endstylesheet %}
+
+{% schema %}
+{
+  "name": "Drink meet the elements",
+  "tag": "section",
+  "class": "section-wrapper",
+  "settings": [
+    {
+      "type": "text",
+      "id": "heading",
+      "label": "Heading",
+      "default": "Meet the Elements"
+    },
+    {
+      "type": "text",
+      "id": "subheading",
+      "label": "Subheading",
+      "default": "[Rooted in Pancha Mahabhuta]"
+    },
+    {
+      "type": "text",
+      "id": "description",
+      "label": "Description",
+      "default": "Five elements. Five rare Himalayan ingredients. One daily ritual"
+    },
+    {
+      "type": "text",
+      "id": "cta_label",
+      "label": "Button label",
+      "default": "Shop the Collection"
+    },
+    {
+      "type": "url",
+      "id": "cta_link",
+      "label": "Button link"
+    }
+  ],
+  "blocks": [
+    {
+      "type": "element_card",
+      "name": "Element card",
+      "settings": [
+        {
+          "type": "text",
+          "id": "title",
+          "label": "Title",
+          "default": "PRITHVI [ Earth ]"
+        },
+        {
+          "type": "text",
+          "id": "badge",
+          "label": "Badge text",
+          "default": "[Arabica Coffee + Timur Pepper]"
+        },
+        {
+          "type": "image_picker",
+          "id": "image",
+          "label": "Can image"
+        },
+        {
+          "type": "product",
+          "id": "product",
+          "label": "Linked product",
+          "info": "Optional. Enables a working Add to cart button."
+        },
+        {
+          "type": "text",
+          "id": "note",
+          "label": "Footnote",
+          "default": "60 mg natural caffeine, grounded focus · Only 14.50 calories"
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Drink meet the elements",
+      "blocks": [
+        {
+          "type": "element_card",
+          "settings": { "title": "PRITHVI [ Earth ]", "badge": "[Arabica Coffee + Timur Pepper]", "note": "60 mg natural caffeine, grounded focus · Only 14.50 calories" }
+        },
+        {
+          "type": "element_card",
+          "settings": { "title": "JAL [ Water ]", "badge": "[Wild Rhododendron]", "note": "Naturally pink from anthocyanins, 2g fiber · Only 5.90 calories" }
+        },
+        {
+          "type": "element_card",
+          "settings": { "title": "AGNI [ Fire ]", "badge": "[Sea Buckthorn from 11,400 ft]", "note": "35 mg vitamin C, complete Omega- 3/6/7/8/9 profile · Only 29.90 calories" }
+        },
+        {
+          "type": "element_card",
+          "settings": { "title": "VAYU [ Air ]", "badge": "[Wild Kilmora Berry]", "note": "Can't be farmed, hand-foraged once a year · Only 2.50 calories" }
+        }
+      ]
+    }
+  ]
+}
+{% endschema %}

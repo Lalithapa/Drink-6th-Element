@@ -1,0 +1,232 @@
+{% comment %}
+  "Every Ingredient has a story": heading row + a grid of ingredient photo
+  cards, each with a title, description and CTA.
+{% endcomment %}
+
+<div class="drink-story">
+  <div class="drink-story__header page-width">
+    <h2 class="drink-section-heading drink-story__heading">{{ section.settings.heading }}</h2>
+    {%- if section.settings.description != blank -%}
+      <p class="drink-story__description">{{ section.settings.description }}</p>
+    {%- endif -%}
+    {%- if section.settings.cta_label != blank -%}
+      <a href="{{ section.settings.cta_link | default: '#' }}" class="drink-story__cta">
+        {{ section.settings.cta_label }}
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+      </a>
+    {%- endif -%}
+  </div>
+
+  <div class="drink-story__grid page-width">
+    {%- for block in section.blocks -%}
+      <div class="drink-story__card" {{ block.shopify_attributes }}>
+        <div class="drink-story__image">
+          {%- if block.settings.image != blank -%}
+            {{ block.settings.image | image_url: width: 600 | image_tag: class: 'drink-story__img', loading: 'lazy', width: 600, height: 630 }}
+          {%- else -%}
+            <img
+              src="{{ block.settings.fallback_asset | asset_url }}"
+              alt="{{ block.settings.title }}"
+              class="drink-story__img"
+              width="600"
+              height="630"
+              loading="lazy"
+            >
+          {%- endif -%}
+        </div>
+        <p class="drink-story__title">{{ block.settings.title }}</p>
+        {%- if block.settings.body != blank -%}
+          <p class="drink-story__body">{{ block.settings.body }}</p>
+        {%- endif -%}
+        <a href="{{ block.settings.link | default: '#' }}" class="drink-pill-btn drink-pill-btn--forest drink-story__btn">
+          {{ block.settings.button_label | default: 'Experience it' }}
+        </a>
+      </div>
+    {%- endfor -%}
+  </div>
+</div>
+
+{% stylesheet %}
+  .drink-story {
+    padding-block: 40px;
+    background: var(--drink-off-white);
+  }
+
+  .drink-story__header {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: flex-end;
+    justify-content: space-between;
+    gap: 20px;
+    padding-block-end: 40px;
+  }
+
+  .drink-story__heading {
+    font-size: clamp(1.75rem, 3vw, 2.5rem);
+    margin: 0;
+    max-width: 380px;
+  }
+
+  .drink-story__description {
+    max-width: 340px;
+    margin: 0;
+    color: var(--drink-charcoal);
+    font-size: 1.05rem;
+  }
+
+  .drink-story__cta {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    font-weight: 700;
+    color: var(--drink-charcoal);
+    text-decoration: none;
+    white-space: nowrap;
+  }
+
+  .drink-story__cta svg {
+    width: 20px;
+    height: 20px;
+  }
+
+  .drink-story__grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 13px;
+  }
+
+  .drink-story__card {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+  }
+
+  .drink-story__image {
+    border-radius: 32px;
+    overflow: hidden;
+    aspect-ratio: 284 / 298;
+  }
+
+  .drink-story__img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+  }
+
+  .drink-story__title {
+    margin: 0;
+    font-weight: 700;
+    font-size: 1.25rem;
+    color: var(--drink-ink-2);
+  }
+
+  .drink-story__body {
+    margin: 0;
+    color: var(--drink-ink-2);
+    font-size: 1rem;
+  }
+
+  .drink-story__btn {
+    align-self: flex-start;
+  }
+
+  @media screen and (max-width: 989px) {
+    .drink-story__grid {
+      grid-template-columns: repeat(2, 1fr);
+    }
+  }
+
+  @media screen and (max-width: 599px) {
+    .drink-story__grid {
+      grid-template-columns: 1fr;
+    }
+  }
+{% endstylesheet %}
+
+{% schema %}
+{
+  "name": "Drink ingredient story",
+  "tag": "section",
+  "class": "section-wrapper",
+  "settings": [
+    {
+      "type": "text",
+      "id": "heading",
+      "label": "Heading",
+      "default": "Every Ingredient has a story"
+    },
+    {
+      "type": "text",
+      "id": "description",
+      "label": "Description",
+      "default": "Rooted in nature, every ingredient carries its elemental character and ultra-less calories"
+    },
+    {
+      "type": "text",
+      "id": "cta_label",
+      "label": "Button label",
+      "default": "Browse all"
+    },
+    {
+      "type": "url",
+      "id": "cta_link",
+      "label": "Button link"
+    }
+  ],
+  "blocks": [
+    {
+      "type": "ingredient_card",
+      "name": "Ingredient card",
+      "settings": [
+        {
+          "type": "image_picker",
+          "id": "image",
+          "label": "Photo"
+        },
+        {
+          "type": "text",
+          "id": "fallback_asset",
+          "label": "Fallback asset filename",
+          "info": "Used only when no photo is selected. Advanced.",
+          "default": "6e-ingredient-kilmora.jpg"
+        },
+        {
+          "type": "text",
+          "id": "title",
+          "label": "Title",
+          "default": "Kilmora berry"
+        },
+        {
+          "type": "text",
+          "id": "body",
+          "label": "Description",
+          "default": "Wild-foraged, lightly tangy, packed with antioxidants"
+        },
+        {
+          "type": "text",
+          "id": "button_label",
+          "label": "Button label",
+          "default": "Experience it"
+        },
+        {
+          "type": "url",
+          "id": "link",
+          "label": "Button link"
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Drink ingredient story",
+      "blocks": [
+        { "type": "ingredient_card", "settings": { "title": "Kilmora berry", "body": "Wild-foraged, lightly tangy, packed with antioxidants", "fallback_asset": "6e-ingredient-kilmora.jpg" } },
+        { "type": "ingredient_card", "settings": { "title": "Rhododendron", "body": "Naturally pink, floral lightness, 2g fiber per can", "fallback_asset": "6e-ingredient-rhododendron.jpg" } },
+        { "type": "ingredient_card", "settings": { "title": "Blue pea flower", "body": "Soothing freshness, changes color with soil pH", "fallback_asset": "6e-ingredient-bluepea.jpg" } },
+        { "type": "ingredient_card", "settings": { "title": "Coffee Arabica", "body": "Warm energy, grounded boost, 60mg natural caffeine", "fallback_asset": "6e-ingredient-coffee.jpg" } }
+      ]
+    }
+  ]
+}
+{% endschema %}

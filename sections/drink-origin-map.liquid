@@ -1,0 +1,284 @@
+{% comment %}
+  "From the Heart of the Himalayas" origin story: heading over a moody
+  mountain backdrop, a list of element/altitude/ingredient pins, a hand-drawn
+  map illustration, a respect-the-ingredients quote, and a CTA.
+{% endcomment %}
+
+<div class="drink-origin">
+  <div class="drink-origin__heading-wrap page-width">
+    <h2 class="drink-origin__heading">{{ section.settings.heading }}</h2>
+    {%- if section.settings.subheading != blank -%}
+      <p class="drink-origin__subheading">{{ section.settings.subheading }}</p>
+    {%- endif -%}
+    {%- if section.settings.tag != blank -%}
+      <span class="drink-origin__tag">{{ section.settings.tag }}</span>
+    {%- endif -%}
+  </div>
+
+  <div class="drink-origin__content page-width">
+    <div class="drink-origin__pins">
+      {%- for block in section.blocks -%}
+        <div class="drink-origin__pin" {{ block.shopify_attributes }}>
+          <span class="drink-origin__pin-badge">{{ block.settings.element }}</span>
+          {%- if block.settings.altitude != blank -%}
+            <span class="drink-origin__pin-altitude">{{ block.settings.altitude }}</span>
+          {%- endif -%}
+          <span class="drink-origin__pin-ingredient">{{ block.settings.ingredient }}</span>
+        </div>
+      {%- endfor -%}
+    </div>
+
+    <div class="drink-origin__map">
+      {%- if section.settings.map_image != blank -%}
+        {{ section.settings.map_image | image_url: width: 720 | image_tag: class: 'drink-origin__map-img', loading: 'lazy' }}
+      {%- else -%}
+        <img
+          src="{{ '6e-map-illustration.png' | asset_url }}"
+          alt="Map of Himalayan ingredient sourcing regions"
+          class="drink-origin__map-img"
+          width="720"
+          height="922"
+          loading="lazy"
+        >
+      {%- endif -%}
+    </div>
+
+    <div class="drink-origin__story">
+      {%- if section.settings.quote != blank -%}
+        <div class="drink-origin__quote">{{ section.settings.quote }}</div>
+      {%- endif -%}
+      {%- if section.settings.quote_pill != blank -%}
+        <span class="drink-origin__quote-pill">{{ section.settings.quote_pill }}</span>
+      {%- endif -%}
+      {%- if section.settings.cta_label != blank -%}
+        <a href="{{ section.settings.cta_link | default: '#' }}" class="drink-pill-btn drink-pill-btn--gold">
+          <span class="drink-pill-btn__icon" aria-hidden="true">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+          </span>
+          {{ section.settings.cta_label }}
+        </a>
+      {%- endif -%}
+    </div>
+  </div>
+</div>
+
+{% stylesheet %}
+  .drink-origin {
+    position: relative;
+    padding-block: 72px;
+    background:
+      linear-gradient(180deg, rgba(20, 34, 46, 0.55) 0%, rgba(20, 34, 46, 0.78) 100%),
+      radial-gradient(120% 100% at 50% 0%, #4c6478 0%, #33465a 55%, #26333f 100%);
+    color: #fff;
+  }
+
+  .drink-origin__heading-wrap {
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 14px;
+    padding-block-end: 40px;
+  }
+
+  .drink-origin__heading {
+    margin: 0;
+    font-family: var(--font-body--family);
+    font-weight: 700;
+    font-size: clamp(1.75rem, 3.4vw, 2.75rem);
+  }
+
+  .drink-origin__subheading {
+    margin: 0;
+    font-size: 1.1rem;
+    color: rgba(255, 255, 255, 0.9);
+  }
+
+  .drink-origin__tag {
+    display: inline-flex;
+    border: 1px solid rgba(255, 255, 255, 0.5);
+    border-radius: 50px;
+    padding: 8px 22px;
+    font-size: 0.95rem;
+  }
+
+  .drink-origin__content {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: center;
+    gap: 40px;
+  }
+
+  .drink-origin__pins {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    flex: 1 1 300px;
+    max-width: 360px;
+  }
+
+  .drink-origin__pin {
+    background: #fff;
+    color: var(--drink-ink-2);
+    border-radius: 50px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 10px 20px;
+    font-weight: 700;
+    font-size: 0.95rem;
+    flex-wrap: wrap;
+  }
+
+  .drink-origin__pin-badge {
+    background: #fccd3f;
+    border-radius: 50px;
+    padding: 4px 10px;
+    font-size: 0.9rem;
+  }
+
+  .drink-origin__pin-altitude {
+    color: #5182bc;
+  }
+
+  .drink-origin__map {
+    flex: 0 1 320px;
+    max-width: 320px;
+  }
+
+  .drink-origin__map-img {
+    width: 100%;
+    height: auto;
+    display: block;
+  }
+
+  .drink-origin__story {
+    flex: 1 1 320px;
+    max-width: 400px;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 24px;
+  }
+
+  .drink-origin__quote {
+    font-size: 1.2rem;
+    line-height: 1.5;
+  }
+
+  .drink-origin__quote strong {
+    font-weight: 700;
+  }
+
+  .drink-origin__quote-pill {
+    background: var(--drink-forest);
+    border: 1px solid var(--drink-forest);
+    border-radius: 50px;
+    padding: 8px 20px;
+    font-style: italic;
+    font-weight: 600;
+    color: #dbdbdb;
+  }
+
+  @media screen and (max-width: 749px) {
+    .drink-origin__content {
+      flex-direction: column;
+    }
+  }
+{% endstylesheet %}
+
+{% schema %}
+{
+  "name": "Drink origin map",
+  "tag": "section",
+  "class": "section-wrapper",
+  "settings": [
+    {
+      "type": "text",
+      "id": "heading",
+      "label": "Heading",
+      "default": "From the Heart of the Himalayas"
+    },
+    {
+      "type": "text",
+      "id": "subheading",
+      "label": "Subheading",
+      "default": "From the foothills to the peaks. Real places. Real farmers. Real terroir."
+    },
+    {
+      "type": "text",
+      "id": "tag",
+      "label": "Tag pill text",
+      "default": "Highland Botanical Ingredients"
+    },
+    {
+      "type": "image_picker",
+      "id": "map_image",
+      "label": "Map illustration"
+    },
+    {
+      "type": "richtext",
+      "id": "quote",
+      "label": "Quote",
+      "default": "<p><strong>Sea buckthorn grows in wild</strong> at 11400 ft. Kilmora only <strong>grows wild in forests</strong> in deep valleys. Blue pea flower <strong>changes color with soil pH</strong>.</p>"
+    },
+    {
+      "type": "text",
+      "id": "quote_pill",
+      "label": "Quote pill text",
+      "default": "This is what happens when you respect ingredients"
+    },
+    {
+      "type": "text",
+      "id": "cta_label",
+      "label": "Button label",
+      "default": "Read the full story"
+    },
+    {
+      "type": "url",
+      "id": "cta_link",
+      "label": "Button link"
+    }
+  ],
+  "blocks": [
+    {
+      "type": "pin",
+      "name": "Origin pin",
+      "settings": [
+        {
+          "type": "text",
+          "id": "element",
+          "label": "Element name",
+          "default": "Agni"
+        },
+        {
+          "type": "text",
+          "id": "altitude",
+          "label": "Altitude",
+          "default": "[11,400+ ft]"
+        },
+        {
+          "type": "text",
+          "id": "ingredient",
+          "label": "Ingredient",
+          "default": "Sea Buckthorn"
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Drink origin map",
+      "blocks": [
+        { "type": "pin", "settings": { "element": "Agni", "altitude": "[11,400+ ft]", "ingredient": "Sea Buckthorn" } },
+        { "type": "pin", "settings": { "element": "Prithvi", "altitude": "[1,300+ ft]", "ingredient": "Coffee Arabica" } },
+        { "type": "pin", "settings": { "element": "Vayu", "altitude": "[6,700+ ft]", "ingredient": "Kilmora berry" } },
+        { "type": "pin", "settings": { "element": "Jal", "altitude": "[7,874+ ft]", "ingredient": "Rhododendron" } },
+        { "type": "pin", "settings": { "element": "Akash", "altitude": "[3,280 ft]", "ingredient": "Blue Pea Flower" } },
+        { "type": "pin", "settings": { "element": "Sixth", "altitude": "", "ingredient": "Scroll more to find" } }
+      ]
+    }
+  ]
+}
+{% endschema %}

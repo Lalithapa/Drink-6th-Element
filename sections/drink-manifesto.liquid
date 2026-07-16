@@ -1,0 +1,158 @@
+{% comment %}
+  Brand manifesto: intro line, big statement with inline accent glyphs, a
+  pull-quote pill, followed by a dark scrolling marquee of promise points.
+{% endcomment %}
+
+<script
+  src="{{ 'marquee.js' | asset_url }}"
+  type="module"
+  fetchpriority="low"
+></script>
+
+<div class="drink-manifesto">
+  <div class="drink-manifesto__intro page-width">
+    {%- if section.settings.eyebrow != blank -%}
+      <p class="drink-manifesto__eyebrow">{{ section.settings.eyebrow }}</p>
+    {%- endif -%}
+
+    <div class="drink-manifesto__statement">{{ section.settings.statement }}</div>
+
+    {%- if section.settings.pill_text != blank -%}
+      <span class="drink-manifesto__pill">{{ section.settings.pill_text }}</span>
+    {%- endif -%}
+  </div>
+
+  <marquee-component
+    class="drink-manifesto__marquee"
+    autoplay="true"
+    data-speed-factor="25"
+    data-movement-direction="normal"
+    style="--marquee-direction: normal;"
+  >
+    <div class="marquee__wrapper" ref="wrapper">
+      <div class="marquee__content" ref="content">
+        <div class="marquee__repeated-items" ref="marqueeItems[]">
+          <span class="drink-manifesto__marquee-text">{{ section.settings.marquee_text }}</span>
+        </div>
+      </div>
+    </div>
+  </marquee-component>
+</div>
+
+{% stylesheet %}
+  .drink-manifesto {
+    background: var(--drink-cream-2);
+  }
+
+  .drink-manifesto__intro {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    gap: 44px;
+    padding-block: 56px;
+  }
+
+  .drink-manifesto__eyebrow {
+    margin: 0;
+    max-width: 620px;
+    color: #7b7b7b;
+    font-size: 1.35rem;
+  }
+
+  .drink-manifesto__statement {
+    font-family: var(--font-body--family);
+    font-weight: 600;
+    font-size: clamp(1.75rem, 4vw, 3.25rem);
+    color: var(--drink-ink);
+    line-height: 1.25;
+    max-width: 720px;
+  }
+
+  .drink-manifesto__statement em {
+    color: var(--drink-blue-accent);
+    font-style: normal;
+  }
+
+  .drink-manifesto__pill {
+    background: rgba(255, 203, 10, 0.06);
+    border-radius: 50px;
+    padding: 10px 40px;
+    font-style: italic;
+    font-weight: 500;
+    font-size: clamp(1.1rem, 2vw, 1.75rem);
+    color: var(--drink-forest);
+  }
+
+  .drink-manifesto__marquee {
+    display: block;
+    width: 100%;
+    overflow: hidden;
+    background: var(--drink-forest);
+    padding-block: 22px;
+  }
+
+  .drink-manifesto__marquee .marquee__wrapper,
+  .drink-manifesto__marquee .marquee__content,
+  .drink-manifesto__marquee .marquee__repeated-items {
+    display: flex;
+    gap: 2rem;
+    width: fit-content;
+    white-space: nowrap;
+    align-items: center;
+  }
+
+  .drink-manifesto__marquee-text {
+    font-family: var(--font-body--family);
+    font-weight: 700;
+    letter-spacing: 0.03em;
+    text-transform: uppercase;
+    font-size: 1.1rem;
+    color: #d7f5e6;
+  }
+
+  @media (prefers-reduced-motion: no-preference) {
+    .drink-manifesto__marquee:not([data-disabled]) .marquee__wrapper {
+      animation: marquee-motion var(--marquee-speed, 28s) linear infinite var(--marquee-direction);
+    }
+  }
+{% endstylesheet %}
+
+{% schema %}
+{
+  "name": "Drink manifesto",
+  "tag": "section",
+  "class": "section-wrapper",
+  "settings": [
+    {
+      "type": "text",
+      "id": "eyebrow",
+      "label": "Intro line",
+      "default": "Ancient Indian philosophy recognizes five elements that make up our world. But there's a sixth element that completes the ritual:"
+    },
+    {
+      "type": "richtext",
+      "id": "statement",
+      "label": "Statement",
+      "default": "<p>The Sixth. Its <em>YOU</em><br>your choice, your pause your daily ritual</p>"
+    },
+    {
+      "type": "text",
+      "id": "pill_text",
+      "label": "Pull-quote pill text",
+      "default": "Pop it. Drink it. That's the Ritual"
+    },
+    {
+      "type": "text",
+      "id": "marquee_text",
+      "label": "Marquee text",
+      "default": "SWEETENED WITH MONK FRUIT  •  NO SUGAR  •  NO ARTIFICIAL COLORS  •  NO COMPROMISES  •"
+    }
+  ],
+  "presets": [
+    {
+      "name": "Drink manifesto"
+    }
+  ]
+}
+{% endschema %}

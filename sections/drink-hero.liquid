@@ -1,0 +1,281 @@
+{% comment %}
+  Bespoke hero for The 6th Element homepage: headline over a Himalayan mountain
+  photo with a floating product can, followed by a scrolling feature marquee.
+{% endcomment %}
+
+<script
+  src="{{ 'marquee.js' | asset_url }}"
+  type="module"
+  fetchpriority="low"
+></script>
+
+{% liquid
+  assign heading = section.settings.heading
+  assign marquee_text = section.settings.marquee_text
+%}
+
+<div
+  class="drink-hero"
+  style="
+    padding-block-start: {{ section.settings.padding_top }}px;
+    padding-block-end: {{ section.settings.padding_bottom }}px;
+  "
+>
+  <div class="drink-hero__heading-wrap page-width">
+    <h1 class="drink-hero__heading">{{ heading }}</h1>
+  </div>
+
+  <div class="drink-hero__media">
+    {%- if section.settings.mountain_image != blank -%}
+      {{
+        section.settings.mountain_image
+        | image_url: width: 2000
+        | image_tag: class: 'drink-hero__mountain', sizes: '100vw', widths: '750, 1100, 1440, 1920, 2560', loading: 'eager', fetchpriority: 'high'
+      }}
+    {%- else -%}
+      <img
+        src="{{ '6e-hero-mountain-bg.jpg' | asset_url }}"
+        alt=""
+        class="drink-hero__mountain"
+        width="1440"
+        height="558"
+        loading="eager"
+        fetchpriority="high"
+      >
+    {%- endif -%}
+
+    <button
+      type="button"
+      class="drink-hero__scroll-arrow drink-hero__scroll-arrow--up"
+      aria-hidden="true"
+      tabindex="-1"
+    >
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 19V5M5 12l7-7 7 7"/></svg>
+    </button>
+    <button
+      type="button"
+      class="drink-hero__scroll-arrow drink-hero__scroll-arrow--down"
+      aria-hidden="true"
+      tabindex="-1"
+    >
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 5v14M5 12l7 7 7-7"/></svg>
+    </button>
+
+    <div class="drink-hero__can">
+      {%- if section.settings.can_image != blank -%}
+        {{ section.settings.can_image | image_url: width: 600 | image_tag: class: 'drink-hero__can-img', loading: 'eager' }}
+      {%- else -%}
+        <img
+          src="{{ '6e-can-prithvi.png' | asset_url }}"
+          alt="{{ section.settings.can_alt }}"
+          class="drink-hero__can-img"
+          width="1080"
+          height="1350"
+          loading="eager"
+        >
+      {%- endif -%}
+    </div>
+  </div>
+
+  <marquee-component
+    class="drink-hero__marquee"
+    autoplay="true"
+    data-speed-factor="25"
+    data-movement-direction="normal"
+    style="--marquee-direction: normal;"
+  >
+    <div class="marquee__wrapper" ref="wrapper">
+      <div class="marquee__content" ref="content">
+        <div class="marquee__repeated-items" ref="marqueeItems[]">
+          <span class="drink-hero__marquee-text">{{ marquee_text }}</span>
+        </div>
+      </div>
+    </div>
+  </marquee-component>
+</div>
+
+{% stylesheet %}
+  .drink-hero {
+    position: relative;
+    background: #ffffff;
+  }
+
+  .drink-hero__heading-wrap {
+    text-align: center;
+    padding-block-end: 24px;
+  }
+
+  .drink-hero__heading {
+    font-family: var(--font-body--family);
+    font-weight: 800;
+    color: var(--drink-forest);
+    font-size: clamp(2rem, 4vw, 3.25rem);
+    line-height: 1.15;
+    margin: 0;
+  }
+
+  .drink-hero__media {
+    position: relative;
+    width: 100%;
+    aspect-ratio: 1440 / 558;
+    overflow: hidden;
+  }
+
+  .drink-hero__mountain {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: center;
+    display: block;
+  }
+
+  .drink-hero__scroll-arrow {
+    position: absolute;
+    top: 50%;
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    border: 1.5px solid rgba(255, 255, 255, 0.7);
+    background: rgba(255, 255, 255, 0.08);
+    color: #fff;
+    display: none;
+    align-items: center;
+    justify-content: center;
+    pointer-events: none;
+
+    @media screen and (min-width: 750px) {
+      display: flex;
+    }
+  }
+
+  .drink-hero__scroll-arrow svg {
+    width: 18px;
+    height: 18px;
+  }
+
+  .drink-hero__scroll-arrow--up {
+    left: 33%;
+    transform: translateY(-50%);
+  }
+
+  .drink-hero__scroll-arrow--down {
+    right: 33%;
+    transform: translateY(-50%);
+  }
+
+  .drink-hero__can {
+    position: absolute;
+    bottom: -8%;
+    left: 50%;
+    transform: translateX(-50%);
+    width: clamp(140px, 15vw, 220px);
+    z-index: 2;
+    filter: drop-shadow(0 20px 30px rgba(0, 0, 0, 0.25));
+  }
+
+  .drink-hero__can-img {
+    width: 100%;
+    height: auto;
+    display: block;
+  }
+
+  .drink-hero__marquee {
+    display: block;
+    width: 100%;
+    overflow: hidden;
+    background: var(--drink-cream);
+    padding-block: 14px;
+  }
+
+  .drink-hero__marquee .marquee__wrapper,
+  .drink-hero__marquee .marquee__content,
+  .drink-hero__marquee .marquee__repeated-items {
+    display: flex;
+    gap: 2rem;
+    width: fit-content;
+    white-space: nowrap;
+    align-items: center;
+  }
+
+  .drink-hero__marquee-text {
+    font-family: var(--font-body--family);
+    font-weight: 700;
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
+    font-size: 1.1rem;
+    color: var(--drink-ink);
+  }
+
+  @media (prefers-reduced-motion: no-preference) {
+    .drink-hero__marquee:not([data-disabled]) .marquee__wrapper {
+      animation: marquee-motion var(--marquee-speed, 25s) linear infinite var(--marquee-direction);
+    }
+  }
+{% endstylesheet %}
+
+{% schema %}
+{
+  "name": "Drink hero",
+  "tag": "section",
+  "class": "section-wrapper",
+  "settings": [
+    {
+      "type": "text",
+      "id": "heading",
+      "label": "Heading",
+      "default": "India's First Himalayan Botanical Malt Brew"
+    },
+    {
+      "type": "image_picker",
+      "id": "mountain_image",
+      "label": "Mountain background image"
+    },
+    {
+      "type": "image_picker",
+      "id": "can_image",
+      "label": "Floating product can image"
+    },
+    {
+      "type": "text",
+      "id": "can_alt",
+      "label": "Can image alt text",
+      "default": "The 6th Element Himalayan botanical malt brew can"
+    },
+    {
+      "type": "text",
+      "id": "marquee_text",
+      "label": "Marquee text",
+      "default": "FIVE ELEMENTS  •  FIVE FLAVORS  •  2.5-30 CALORIES  •  ZERO ADDED SUGAR  •"
+    },
+    {
+      "type": "header",
+      "content": "Padding"
+    },
+    {
+      "type": "range",
+      "id": "padding_top",
+      "label": "Top",
+      "min": 0,
+      "max": 100,
+      "step": 4,
+      "unit": "px",
+      "default": 32
+    },
+    {
+      "type": "range",
+      "id": "padding_bottom",
+      "label": "Bottom",
+      "min": 0,
+      "max": 100,
+      "step": 4,
+      "unit": "px",
+      "default": 0
+    }
+  ],
+  "presets": [
+    {
+      "name": "Drink hero"
+    }
+  ]
+}
+{% endschema %}

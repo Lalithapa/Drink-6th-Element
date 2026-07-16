@@ -1,0 +1,54 @@
+{% comment %}
+  Full-bleed aerial landscape banner shown beneath the footer.
+{% endcomment %}
+
+<div class="drink-footer-landscape">
+  {%- if section.settings.image != blank -%}
+    {{ section.settings.image | image_url: width: 1600 | image_tag: class: 'drink-footer-landscape__img', loading: 'lazy' }}
+  {%- else -%}
+    <img
+      src="{{ '6e-footer-landscape.jpg' | asset_url }}"
+      alt=""
+      class="drink-footer-landscape__img"
+      width="1440"
+      height="312"
+      loading="lazy"
+    >
+  {%- endif -%}
+</div>
+
+{% stylesheet %}
+  .drink-footer-landscape {
+    line-height: 0;
+  }
+
+  .drink-footer-landscape__img {
+    width: 100%;
+    height: auto;
+    display: block;
+    object-fit: cover;
+  }
+{% endstylesheet %}
+
+{% schema %}
+{
+  "name": "Drink footer landscape",
+  "tag": "section",
+  "class": "section-wrapper",
+  "settings": [
+    {
+      "type": "image_picker",
+      "id": "image",
+      "label": "Landscape image"
+    }
+  ],
+  "enabled_on": {
+    "groups": ["footer"]
+  },
+  "presets": [
+    {
+      "name": "Drink footer landscape"
+    }
+  ]
+}
+{% endschema %}
